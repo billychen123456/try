@@ -3,7 +3,7 @@ import re
 import random
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
-
+from imgurpython import ImgurClient
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -16,6 +16,9 @@ from linebot.models import *
 app = Flask(__name__)
 line_bot_api = LineBotApi('S7GNvKRcsVpFgxMdBqFUxBAzNSW5qNNY3C/2rP/cuBGIUYX3/WkAVtngusiOte5N7u3NjJD6ZeG8YNW4i6M7wHz/3gHRrnZbLm27w1c2r3WwtD11ZODPmaiywY0MxsPnapm1Rn2PHLJhA2pyORcW3QdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('c3fd7501c81675fee9f83b817ed2e73f')
+client_id = 'YOUR_IMGUR_CLIENT_ID'
+client_secret = 'YOUR_IMGUR__CLIENT_SECRET'
+album_id = 'YOUR_IMGUR_ALBUM_ID'
 
 
 @app.route("/callback", methods=['POST'])
@@ -466,25 +469,25 @@ def handle_message(event):
     buttons_template = TemplateSendMessage(
         alt_text='Buttons template',
         template=ButtonsTemplate(
-            title='Select',
-            text='Select',
+            title='選擇服務',
+            text='請選擇',
             thumbnail_image_url='https://i.imgur.com/kzi5kKy.jpg',
             actions=[
                 MessageTemplateAction(
-                    label='GO GO',
-                    text='GO GO'
+                    label='開始玩',
+                    text='開始玩'
                 ),
                 URITemplateAction(
-                    label='Movie',
+                    label='影片介紹 阿肥bot',
                     uri='https://youtu.be/1IxtWgWxtlE'
                 ),
                 URITemplateAction(
-                    label='How to build your Line Bot',
+                    label='如何建立自己的 Line Bot',
                     uri='https://github.com/twtrubiks/line-bot-tutorial'
                 ),
                 URITemplateAction(
-                    label='Contact Developer',
-                    uri='https://www.facebook.com/tzuhsiu.chen'
+                    label='聯絡作者',
+                    uri='https://www.facebook.com/TWTRubiks?ref=bookmarks'
                 )
             ]
         )
