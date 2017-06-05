@@ -466,24 +466,24 @@ def handle_message(event):
     buttons_template = TemplateSendMessage(
         alt_text='Buttons template',
         template=ButtonsTemplate(
-            title='選擇服務',
-            text='請選擇',
+            title='Select',
+            text='Select',
             thumbnail_image_url='https://i.imgur.com/kzi5kKy.jpg',
             actions=[
                 MessageTemplateAction(
-                    label='開始玩',
-                    text='開始玩'
+                    label='GO GO',
+                    text='GO GO'
                 ),
                 URITemplateAction(
-                    label='影片介紹',
+                    label='Movie',
                     uri='https://youtu.be/1IxtWgWxtlE'
                 ),
                 URITemplateAction(
-                    label='如何建立自己的 Line Bot',
+                    label='How to build your Line Bot',
                     uri='https://github.com/twtrubiks/line-bot-tutorial'
                 ),
                 URITemplateAction(
-                    label='聯絡作者',
+                    label='Contact Developer',
                     uri='https://www.facebook.com/tzuhsiu.chen'
                 )
             ]
