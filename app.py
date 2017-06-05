@@ -3,6 +3,14 @@ import re
 import random
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
+import sys
+from argparse import ArgumentParser
+from xml.dom import minidom
+try:
+	from urllib.request import urlopen
+	from urllib.parse import urlencode
+except ImportError:
+	from urllib import urlopen, urlencode
 
 
 from linebot import (
@@ -16,6 +24,7 @@ from linebot.models import *
 app = Flask(__name__)
 line_bot_api = LineBotApi('S7GNvKRcsVpFgxMdBqFUxBAzNSW5qNNY3C/2rP/cuBGIUYX3/WkAVtngusiOte5N7u3NjJD6ZeG8YNW4i6M7wHz/3gHRrnZbLm27w1c2r3WwtD11ZODPmaiywY0MxsPnapm1Rn2PHLJhA2pyORcW3QdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('c3fd7501c81675fee9f83b817ed2e73f')
+
 
 
 @app.route("/callback", methods=['POST'])
@@ -278,7 +287,33 @@ def panx():
         link = data['href']
         content += '{}\n{}\n\n'.format(title, link)
     return content
+def weather():
+	arguments = ArgumentParser(prog="weather")
+	arguments.add_argument("--unit", choices="CF", dest="unit", default="C", help="Which unit to display the temperatures in")
+	arguments.add_argument("location", nargs="+")
+	args = arguments.parse_args(sys.argv[1:])
 
+	for location in args.location:
+		url = API_URL + urlencode({"weather": location})
+		xml = urlopen(url).read()
+		doc = minidom.parseString(xml)
+
+		forecast_information = doc.documentElement.getElementsByTagName("forecast_information")[0]
+		city = forecast_information.getElementsByTagName("city")[0].getAttribute("data")
+
+		current_conditions = doc.documentElement.getElementsByTagName("current_conditions")[0]
+		temp = current_conditions.getElementsByTagName("temp_f" if args.unit == "F" else "temp_c")[0].getAttribute("data")
+		condition = current_conditions.getElementsByTagName("condition")[0].getAttribute("data")
+		wind_condition = current_conditions.getElementsByTagName("wind_condition")[0].getAttribute("data")
+		humidity = current_conditions.getElementsByTagName("humidity")[0].getAttribute("data")
+
+		indent = "  "
+		print("Weather for {0}:".format(city))
+		print(indent + "{0}°{1}".format(temp, args.unit))
+		print(indent + condition)
+		print(indent + wind_condition)
+		print(indent + humidity)
+	return content
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -345,6 +380,12 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
+	if event.message.text == "天氣":
+		content = weather()
+		line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
     if event.message.text == "開始玩":
         buttons_template = TemplateSendMessage(
             alt_text='Buttons template',
@@ -369,6 +410,10 @@ def handle_message(event):
                         label='正妹',
                         text='正妹'
                     )
+					MessageTemplateAction(
+						label='天氣'
+						text='天氣'
+					)
                 ]
             )
         )
@@ -475,7 +520,7 @@ def handle_message(event):
                     text='開始玩'
                 ),
                 URITemplateAction(
-                    label='影片介紹',
+                    label='影片介紹 阿肥bot',
                     uri='https://youtu.be/1IxtWgWxtlE'
                 ),
                 URITemplateAction(
@@ -484,7 +529,7 @@ def handle_message(event):
                 ),
                 URITemplateAction(
                     label='聯絡作者',
-                    uri='https://www.facebook.com/tzuhsiu.chen'
+                    uri='https://www.facebook.com/TWTRubiks?ref=bookmarks'
                 )
             ]
         )
