@@ -475,7 +475,7 @@ def handle_message(event):
                     text='開始玩'
                 ),
                 URITemplateAction(
-                    label='影片介紹 阿肥bot',
+                    label='影片介紹',
                     uri='https://youtu.be/1IxtWgWxtlE'
                 ),
                 URITemplateAction(
@@ -484,7 +484,7 @@ def handle_message(event):
                 ),
                 URITemplateAction(
                     label='聯絡作者',
-                    uri='https://www.facebook.com/TWTRubiks?ref=bookmarks'
+                    uri='https://www.facebook.com/tzuhsiu.chen'
                 )
             ]
         )
