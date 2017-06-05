@@ -466,14 +466,14 @@ def handle_message(event):
         template=ButtonsTemplate(
             title='選擇服務',
             text='請選擇',
-            thumbnail_image_url='https://i.imgur.com/kzi5kKy.jpg',
+            thumbnail_image_url='http://twimg.edgesuite.net/images/ReNews/20170115/640_86387ec286267a13d6d6d0e82606b39d.jpg',
             actions=[
                 MessageTemplateAction(
                     label='開始玩',
                     text='開始玩'
                 ),
                 URITemplateAction(
-                    label='影片介紹 阿肥bot',
+                    label='影片介紹',
                     uri='https://youtu.be/1IxtWgWxtlE'
                 ),
                 URITemplateAction(
@@ -482,7 +482,7 @@ def handle_message(event):
                 ),
                 URITemplateAction(
                     label='聯絡作者',
-                    uri='https://www.facebook.com/TWTRubiks?ref=bookmarks'
+                    uri='https://www.facebook.com/tzuhsiu.chen'
                 )
             ]
         )
