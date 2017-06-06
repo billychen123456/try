@@ -476,11 +476,11 @@ def handle_message(event):
                 ),
                 URITemplateAction(
                     label='影片介紹',
-                    uri='https://youtu.be/1IxtWgWxtlE'
+                    uri='https://www.youtube.com/watch?v=BYnSPp3zDHg&t=429s'
                 ),
                 URITemplateAction(
                     label='如何建立自己的 Line Bot',
-                    uri='https://www.youtube.com/watch?v=BYnSPp3zDHg&t=429s'
+                    uri='http://www.oxxostudio.tw/articles/201701/line-bot-2.html'
                 ),
                 URITemplateAction(
                     label='聯絡作者',
