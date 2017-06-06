@@ -480,7 +480,7 @@ def handle_message(event):
                 ),
                 URITemplateAction(
                     label='如何建立自己的 Line Bot',
-                    uri='https://github.com/twtrubiks/line-bot-tutorial'
+                    uri='https://www.youtube.com/watch?v=BYnSPp3zDHg&t=429s'
                 ),
                 URITemplateAction(
                     label='聯絡作者',
